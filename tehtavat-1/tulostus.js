@@ -1,5 +1,5 @@
 const tulostaTahtia = maara => {
-	let tahdet = "";
+    let tahdet = "";
     for (let i = 0; i < maara; i++) {
         tahdet += " *";
     }	
@@ -7,7 +7,7 @@ const tulostaTahtia = maara => {
 }
 
 const teeMerkkeja = (merkki, maara) => {
-	let merkit = "";
+    let merkit = "";
     for (let i = 0; i < maara; i++) {
         merkit += `${merkki}`;
     }	
@@ -16,16 +16,16 @@ const teeMerkkeja = (merkki, maara) => {
 
 const tulostaTulos = tulos => {
     let teksti = String(tulos);
-	let pituus = teksti.length;
-	let viivat = teeMerkkeja("-", pituus);
-	//let lopputulos = `${viivat}\n${teksti}\n${viivat}`;
-	console.log(viivat);
-	console.log(teksti);
-	console.log(viivat);
+    let pituus = teksti.length;
+    let viivat = teeMerkkeja("-", pituus);
+    //let lopputulos = `${viivat}\n${teksti}\n${viivat}`;
+    console.log(viivat);
+    console.log(teksti);
+    console.log(viivat);
 }
 
 module.exports = {
     tulostaTahtia, 
-	teeMerkkeja, 
-	tulostaTulos
+    teeMerkkeja, 
+    tulostaTulos
 }

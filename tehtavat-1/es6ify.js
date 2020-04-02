@@ -8,17 +8,17 @@ const multiplyByTen = a => a * 10;
 const sum = (a, b) => a + b;
  
 const power = (base, exponent) => {
-	let result = 1;
-	for (let count = 0; count < exponent; count++) { 
+    let result = 1;
+    for (let count = 0; count < exponent; count++) { 
         result *= base; 
     } 
     return result; 
 };
 
 module.exports = {
-	hello, 
-	sayHi, 
-	multiplyByTen, 
-	sum, 
-	power
+    hello, 
+    sayHi, 
+    multiplyByTen, 
+    sum, 
+    power
 }
