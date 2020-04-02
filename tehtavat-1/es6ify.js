@@ -1,21 +1,24 @@
-function hello() { 
-    console.log('Hello, World!'); 
-}
 
-function sayHi(name) { 
-    console.log('Hi ' + name + '!'); 
-}
+const hello = () => console.log('Hello, World!');
 
-function multiplyByTen(a) { 
-    return a * 10; 
-}
+const sayHi = name => console.log(`Hi ${name}!`);
 
-function sum(a, b) { return a + b; }
+const multiplyByTen = a => a * 10;
 
-function power(base, exponent) { 
-    var result = 1; 
-    for (var count = 0; count < exponent; count++) { 
+const sum = (a, b) => a + b;
+ 
+const power = (base, exponent) => {
+	let result = 1;
+	for (let count = 0; count < exponent; count++) { 
         result *= base; 
     } 
     return result; 
-}; 
+};
+
+module.exports = {
+	hello, 
+	sayHi, 
+	multiplyByTen, 
+	sum, 
+	power
+}
