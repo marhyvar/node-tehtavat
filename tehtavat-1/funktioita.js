@@ -30,7 +30,7 @@ const lukusarjanSumma = n => {
 const kertoma = n => {
     if (n < 2) {
         return 1;
-	} else {
+    } else {
         return n * kertoma(n-1);
     }
 }
