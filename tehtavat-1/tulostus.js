@@ -18,8 +18,10 @@ const tulostaTulos = tulos => {
     let teksti = String(tulos);
 	let pituus = teksti.length;
 	let viivat = teeMerkkeja("-", pituus);
-	let lopputulos = `${viivat} \n${teksti} \n${viivat}`;
-	console.log(lopputulos);
+	//let lopputulos = `${viivat}\n${teksti}\n${viivat}`;
+	console.log(viivat);
+	console.log(teksti);
+	console.log(viivat);
 }
 
 module.exports = {

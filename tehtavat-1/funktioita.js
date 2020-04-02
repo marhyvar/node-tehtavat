@@ -1,20 +1,21 @@
 const tulostus = require("./tulostus");
+const tulostin = tulostus.tulostaTahtia;
 
-const tulostaNelio = sivu => {
+const tulostaNelio = (sivu, tulostin) => {
     for (let i = 0; i < sivu; i++) {
-	    tulostus.tulostaTahtia(sivu);
+	    tulostin(sivu);
     }
 }
 
-const tulostaSuorakulmio = (leveys, korkeus) => {
+const tulostaSuorakulmio = (leveys, korkeus, tulostin) => {
     for (let i = 0; i < korkeus; i++) {
-	    tulostus.tulostaTahtia(leveys);
+	    tulostin(leveys);
     }
 }
 
-const tulostaKolmio = korkeus => {
+const tulostaKolmio = (korkeus, tulostin) => {
     for (let i = 1; i <= korkeus; i++) {
-	    tulostus.tulostaTahtia(i);
+	    tulostin(i);
     }
 }
 
@@ -41,9 +42,3 @@ module.exports = {
 	lukusarjanSumma,
 	kertoma
 }
-
-//tulostaNelio(4);
-//tulostaSuorakulmio(5, 3);
-//tulostaKolmio(5);
-//tulostus.tulostaTulos(lukusarjanSumma(100));
-//tulostus.tulostaTulos(kertoma(20));
