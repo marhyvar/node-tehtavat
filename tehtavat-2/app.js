@@ -1,10 +1,17 @@
 const express = require('express')
+//const cors =require('cors')
 const app = express()
 const port = 3000
 
 app.use(express.static('public'))
+app.use('/hello', express.static('hello'))
+//app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded ({ extended : true }))
+
+app.get('/api', (req, res) => {
+    res.send({msg: 'Hello, World!'})
+})
 
 app.get('/api/exercise', (req, res) => {
     res.status(200).json(req.query)
