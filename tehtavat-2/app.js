@@ -7,7 +7,7 @@ app.use(express.json())
 app.use(express.urlencoded ({ extended : true }))
 
 app.get('/api/exercise', (req, res) => {
-    res.status(200).send(req.query)
+    res.status(200).json(req.query)
 })
 
 app.post('/api/exercise', (req, res) => {
@@ -18,6 +18,19 @@ app.post('/api/exercise', (req, res) => {
         }
     text +='</ul>'
     res.status(200).send(text)
+})
+
+app.post('/api/login', (req, res) => {
+    const name = req.body.user
+    const password = req.body.pwd
+    console.log(`${name} ${password}`)
+    if (name == 'mark' && password == 'giraffe') {
+        res.status(200).json({user: name})
+    } else if (name == '' || password == '') {
+        res.status(400).send('Name or password missing')
+    } else {
+        res.status(403).send('No access')
+    }
 })
 
 app.listen(port, () => console.log(`App listening on port ${port}`))
