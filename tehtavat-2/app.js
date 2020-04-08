@@ -22,7 +22,7 @@ app.post('/api/exercise', (req, res) => {
     <p>I received these parameters: </p><ul>'
     for (const key in req.body) {
         text += `<li>${key}: ${req.body[key]}</li>`
-        }
+    }
     text +='</ul>'
     res.status(200).send(text)
 })
