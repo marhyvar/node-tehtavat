@@ -19,9 +19,9 @@ const query_validator = (req, res, next) => {
 
         if (notValidQuery) {
             const err = new Error('Invalid query parameter');
-            res.status(400).send();
-            //err.statusCode = 400;
-            //next(err);
+            //res.status(400).send();
+            err.statusCode = 400;
+            next(err);
         } else {
             console.log('ei virhettä')
             next();
