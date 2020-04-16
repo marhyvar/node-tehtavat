@@ -5,7 +5,9 @@ const query_validator = (req, res, next) => {
     let notValidQuery = false;
 
     if (Object.keys(req.query).length === 0) {
-        res.status(200).send(values);
+        //res.status(200).send(values);
+        //res.locals.weather = values;
+        next();
     } else {
         console.log('else haara');
         for (const key in list) {
@@ -24,6 +26,7 @@ const query_validator = (req, res, next) => {
             next(err);
         } else {
             console.log('ei virhettä')
+            //res.locals.weather = list;
             next();
         }
     }
