@@ -11,10 +11,9 @@ app.use(morgan('dev'));
 app.use(express.json())
 app.use(express.urlencoded ({ extended : true }))
 app.get('/weather', query_validator, (req, res, next) => {
-    //res.status(200).send(req.query.observation);
     fetch(url)
         .then(res => res.json())
-        .then(json => useData(json))
+        .then(json => useData(json, req.query))
         .then(json => res.send(json))
 
 });
@@ -22,21 +21,28 @@ app.use(error_handler);
 
 app.listen(port, () => console.log(`App listening on port ${port}`));
 
-const useData = json => {
+const useData = (json, weather) => {
     let obj = {};
-    obj['temperature'] = json['t2m']
-    obj['humidity'] = json['Humidity']
-    obj['wind'] = json['WindSpeedMS']
-    return obj;
+    if (Object.keys(weather).length === 0) {
+        obj['temperature'] = getLatest(json, 't2m')
+        obj['humidity'] = getLatest(json, 'Humidity');
+        obj['wind'] = getLatest(json, 'WindSpeedMS');
+        return obj;
+    } else {
+        const items = weather.observation;
+        for (const key in items) {
+            const value = items[key]
+            obj[value] = getLatest(json, weatherItems[value])
+        }
+        return obj;
+    }
 }
 
-const makeRequest = async url => {
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        return data;
-    } catch (err) {
-        console.log(err);
-    }
+const getLatest = (data, item) => 
+    data[item][(data[item].length -1)][1] 
 
+const weatherItems = {
+    temperature: 't2m',
+    humidity: 'Humidity',
+    wind: 'WindSpeedMS'
 }

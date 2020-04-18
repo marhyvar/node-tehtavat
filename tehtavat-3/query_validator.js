@@ -5,8 +5,6 @@ const query_validator = (req, res, next) => {
     let notValidQuery = false;
 
     if (Object.keys(req.query).length === 0) {
-        //res.status(200).send(values);
-        //res.locals.weather = values;
         next();
     } else {
         console.log('else haara');
@@ -21,12 +19,10 @@ const query_validator = (req, res, next) => {
 
         if (notValidQuery) {
             const err = new Error('Invalid query parameter');
-            //res.status(400).send();
             err.statusCode = 400;
             next(err);
         } else {
             console.log('ei virhettä')
-            //res.locals.weather = list;
             next();
         }
     }
