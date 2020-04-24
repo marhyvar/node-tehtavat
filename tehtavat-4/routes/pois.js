@@ -32,6 +32,43 @@ router.post('/', (req, res) => {
     }
 })
 
+router.put('/:id', (req, res) => {
+    const id = req.params.id;
+    if (isValidPoi(req.body)) {
+        try {
+            const poi = db.getPoi(id);
+            if (typeof poi != 'undefined') {
+                db.setPoi(id, req.body);
+                res.status(200).send(req.body);
+            } else {
+                db.createPoi(req.body);
+                res.status(201).send(req.body);
+            }
+            
+        } catch (e) {
+            console.log('error');       
+        }
+    } else {
+        res.status(400).send({400: 'POI-tiedot virheelliset'});        
+    }
+})
+
+router.delete('/:id', (req, res) => {
+    const id = req.params.id;
+    try {
+        const poi = db.getPoi(id);
+        if (typeof poi != 'undefined') {
+            db.deletePoi(id)
+            res.status(204).send({204: 'poistettu'});
+        } else {
+            res.status(404).send({404: 'id:tä ei ole'});
+        }
+        
+    } catch (e) {
+        console.log('error');       
+    }
+})
+
 const isValidPoi = obj => {
     let valid;
     const name = obj.name;
