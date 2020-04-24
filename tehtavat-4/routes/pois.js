@@ -24,25 +24,35 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    const name = req.body.name;
-    const description = req.body.description;
-    const city = req.body.city;
-    const lat = req.body.coordinates.lat;
-    const lng = req.body.coordinates.lng;
-    if (Object.keys(req.body).length != 4) {
-        res.status(400).send({400: 'POI-tiedot virheelliset'});    
+    if (isValidPoi(req.body)) {
+        db.createPoi(req.body);
+        res.status(201).send(req.body);   
+    } else {
+        res.status(400).send({400: 'POI-tiedot virheelliset'});
+    }
+})
+
+const isValidPoi = obj => {
+    let valid;
+    const name = obj.name;
+    const description = obj.description;
+    const city = obj.city;
+    const lat = obj.coordinates.lat;
+    const lng = obj.coordinates.lng;
+    if (Object.keys(obj).length != 4) {
+        valid = false;    
     } else {
         if (name !== '' && city !=='' && description !== '') {
             if (isNaN(lat) || isNaN(lng)) {
-                res.status(400).send({400: 'POI-tiedot virheelliset'});
+                valid = false;
             } else {
-                db.createPoi(req.body);
-                res.status(201).send(req.body);
+                valid = true;
             }
         } else {
-            res.status(400).send({400: 'POI-tiedot virheelliset'});
+            valid = false;
         }
     }
-})
+    return valid;
+}
 
 module.exports = router;
