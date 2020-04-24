@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
+const checkAuth = require('../checkAuth');
 
 router.get('/', (req, res) => {
     res.status(200).send(
@@ -23,7 +24,7 @@ router.get('/:id', (req, res) => {
     }
 })
 
-router.post('/', (req, res) => {
+router.post('/', checkAuth, (req, res) => {
     if (isValidPoi(req.body)) {
         db.createPoi(req.body);
         res.status(201).send(req.body);   
@@ -32,7 +33,7 @@ router.post('/', (req, res) => {
     }
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', checkAuth, (req, res) => {
     const id = req.params.id;
     if (isValidPoi(req.body)) {
         try {
@@ -53,7 +54,7 @@ router.put('/:id', (req, res) => {
     }
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', checkAuth, (req, res) => {
     const id = req.params.id;
     try {
         const poi = db.getPoi(id);
