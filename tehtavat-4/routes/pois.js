@@ -8,4 +8,19 @@ router.get('/', (req, res) => {
     );
 });
 
+router.get('/:id', (req, res) => {
+    const id = req.params.id;
+    try {
+        const poi = db.getPoi(id);
+        if (typeof poi != 'undefined') {
+            res.status(200).send(poi);
+        } else {
+            res.status(404).send('id:tä ei ole');
+        }
+        
+    } catch (e) {
+        console.log('error');       
+    }
+})
+
 module.exports = router;

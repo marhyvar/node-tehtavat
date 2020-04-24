@@ -7,7 +7,7 @@ const port = 3000;
 
 app.use(express.json());
 
-app.use('/pois', poisRouter);
-app.use('/auth', authRouter);
+app.use('/api/v1/pois', poisRouter);
+app.use('/api/v1/auth', authRouter);
 
 app.listen(port, () => console.log(`App listening on port ${port}`));
