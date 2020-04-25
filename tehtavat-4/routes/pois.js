@@ -2,11 +2,17 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 const checkAuth = require('../checkAuth');
+const haversine = require('haversine');
 
 router.get('/', (req, res) => {
-    res.status(200).send(
-        db.getPoi()
-    );
+    if (Object.keys(req.query).length == 4) {
+        const list = countWithinRadius(db.getPoi(), req.query);
+        res.status(200).send(list);
+    } else {
+        res.status(200).send(       
+            db.getPoi()
+        );
+    }
 });
 
 router.get('/:id', (req, res) => {
@@ -91,6 +97,34 @@ const isValidPoi = obj => {
         }
     }
     return valid;
+}
+
+const countWithinRadius = (items, query) => {
+    const radius = query.radius;
+    console.log('items', items);
+    console.log('query', query);
+    const start = {
+        latitude: query.lat,
+        longitude: query.lng
+    }
+    let pois = [];
+
+    items.forEach(item => {
+        const end = {
+            latitude: item.coordinates.lat,
+            longitude: item.coordinates.lng
+        }
+        const distance = haversine(start, end, {unit: 'meter'}) / 1000;
+        if (distance <= radius) {
+            pois.push(item);
+        }
+    });
+
+    if (pois.length > 0) {
+        return pois;
+    } else {
+        return { msg: 'Kohteita ei löytynyt'}
+    }
 }
 
 module.exports = router;
